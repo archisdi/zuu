@@ -1,0 +1,21 @@
+{
+  "name": "zuu",
+  "version": "1.0.0",
+  "description": "yet another web framework for kickstarting a project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "htttps://github.com/archisdi/zuu.git"
+  },
+  "keywords": [
+    "framework"
+  ],
+  "author": "Archie Isdiningrat",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.0.3"
+  }
+}
