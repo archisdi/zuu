@@ -18,8 +18,9 @@ const defaultOptions = {
     },
     abortEarly: false
 };
-exports.SchemeValidator = (input, scheme) => {
-    return scheme.validateAsync(input).catch((err) => {
+exports.SchemeValidator = (input, scheme, options = defaultOptions) => {
+    return scheme.validateAsync(input, options)
+        .catch((err) => {
         const details = err.details.reduce((detail, item) => {
             detail[item.context.key] = item.message.replace(/"/g, '');
             return detail;
