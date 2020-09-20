@@ -8,7 +8,7 @@ const controller_factory_1 = require("../factory/controller_factory");
 const exception_1 = require("../middleware/exception");
 const not_found_1 = require("../middleware/not_found");
 class BaseApp {
-    constructor(port) {
+    constructor(port = 8080) {
         this._app = express();
         this._port = port;
         this.setSingletonModules();
@@ -16,6 +16,9 @@ class BaseApp {
         this.setControllers();
         this.setExceptionHandlers();
     }
+    /** @Overrided */
+    setSingletonModules() { }
+    ;
     get app() {
         return this._app;
     }

@@ -5,8 +5,9 @@ import { BaseModel } from '../model/model';
 declare abstract class BaseApp {
     protected _app: express.Application;
     protected _port: number;
-    constructor(port: number);
-    abstract setSingletonModules(): void;
+    constructor(port?: number);
+    /** @Overrided */
+    protected setSingletonModules(): void;
     abstract setControllers(): void;
     get app(): express.Application;
     get port(): number;

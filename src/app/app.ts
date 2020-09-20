@@ -12,7 +12,7 @@ abstract class BaseApp {
     protected _app: express.Application;
     protected _port: number;
 
-    public constructor(port: number) {
+    public constructor(port: number = 8080) {
         this._app = express();
         this._port = port;
         this.setSingletonModules();
@@ -21,7 +21,9 @@ abstract class BaseApp {
         this.setExceptionHandlers();
     }
 
-    abstract setSingletonModules(): void;
+    /** @Overrided */
+    protected setSingletonModules(): void { };
+
     abstract setControllers(): void;
 
     public get app(): express.Application {
