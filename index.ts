@@ -1,19 +1,9 @@
-import App from './src/app/app';
-import Controller from './src/controller/controller'
-import Model from './src/model/model';
-import Repository from './src/repository';
-import Event from './src/event/event'
-import Factory from './src/factory';
-import Libs from './src/libs';
-import Helpers from './src/utils/helpers';
-
-export {
-    App,
-    Controller,
-    Model,
-    Event,
-    Repository,
-    Factory,
-    Libs,
-    Helpers
-}
+export * from './modules/app';
+export * from './modules/controller/controller'
+export * from './modules/model/model';
+export * from './modules/repository';
+export * from './modules/event/event'
+export * from './modules/factory';
+export * from './modules/libs';
+export * from './modules/utils/helpers';
+export * from './modules/middleware';
