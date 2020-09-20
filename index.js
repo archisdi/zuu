@@ -11,10 +11,10 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./modules/app"), exports);
-__exportStar(require("./modules/controller/controller"), exports);
-__exportStar(require("./modules/model/model"), exports);
+__exportStar(require("./modules/controller"), exports);
+__exportStar(require("./modules/model"), exports);
 __exportStar(require("./modules/repository"), exports);
-__exportStar(require("./modules/event/event"), exports);
+__exportStar(require("./modules/event"), exports);
 __exportStar(require("./modules/factory"), exports);
 __exportStar(require("./modules/libs"), exports);
 __exportStar(require("./modules/utils/helpers"), exports);
