@@ -19,19 +19,20 @@ const defaultOptions: IObject = {
     abortEarly: false
 };
 
-export const SchemeValidator = (input: IObject, scheme: Joi.ObjectSchema): any => {
-    return scheme.validateAsync(input).catch((err: any): void => {
-        const details = err.details.reduce((detail: any, item: any): IObject => {
-            detail[item.context.key] = item.message.replace(/"/g, '');
-            return detail;
-        }, {});
-        throw new HttpError.HttpError({
-            message: 'error validating fields',
-            http_status: 422,
-            name: COMMON_ERRORS.VALIDATION_ERROR,
-            data: details
+export const SchemeValidator = (input: IObject, scheme: Joi.ObjectSchema, options = defaultOptions): any => {
+    return scheme.validateAsync(input, options)
+        .catch((err: any): void => {
+            const details = err.details.reduce((detail: any, item: any): IObject => {
+                detail[item.context.key] = item.message.replace(/"/g, '');
+                return detail;
+            }, {});
+            throw new HttpError.HttpError({
+                message: 'error validating fields',
+                http_status: 422,
+                name: COMMON_ERRORS.VALIDATION_ERROR,
+                data: details
+            });
         });
-    });
 };
 
 export default SchemeValidator;
