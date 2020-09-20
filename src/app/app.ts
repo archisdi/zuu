@@ -1,7 +1,7 @@
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import express from 'express';
-import helmet from 'helmet';
+import * as bodyParser from 'body-parser';
+import * as cors from 'cors';
+import * as express from 'express';
+import * as helmet from 'helmet';
 import { StaticBaseController } from '../controller/controller';
 import RestfulControllerFactory, { ControllerOpts, StaticModel } from '../factory/controller_factory';
 import GlobalExceptionHandler from '../middleware/exception';

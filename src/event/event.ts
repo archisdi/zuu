@@ -1,4 +1,4 @@
-import Bull from 'bull';
+import * as Bull from 'bull';
 import { IObject } from '../typings/common';
 
 export interface StaticEventHandler<dispatchPayload = any> {
@@ -26,3 +26,5 @@ export abstract class BaseEvent<PayloadData = IObject> {
 export interface StaticEvent {
     new(...params: any): BaseEvent;
 }
+
+export default BaseEvent;

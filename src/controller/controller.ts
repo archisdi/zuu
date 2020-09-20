@@ -1,5 +1,7 @@
 import { RequestHandler, Router } from 'express';
+import * as Joi from "joi";
 import HandlerFactory from '../factory/handler_factory';
+import request_validator from '../middleware/request_validator';
 import route_cache from '../middleware/route_cache';
 import { MethodHandler } from '../typings/common';
 
@@ -17,7 +19,8 @@ interface ControllerOptions {
 
 interface RouteOptions {
     cache?: boolean;
-    middlewares?: MiddleWare
+    middlewares?: MiddleWare;
+    validate: Joi.ObjectSchema;
 }
 
 export default abstract class BaseController {
@@ -49,6 +52,10 @@ export default abstract class BaseController {
         options?: RouteOptions
     ): void {
         const middlewares = options?.middlewares ? options.middlewares instanceof Array ? options.middlewares : [options.middlewares] : [];
+
+        if (options?.validate) {
+            middlewares.push(request_validator(options.validate));
+        }
 
         if (options?.cache) {
             middlewares.push(route_cache);

@@ -1,0 +1,21 @@
+import { IObject } from '../typings/common';
+export declare const parseDataObject: (object: IObject) => IObject;
+export declare const offset: (page?: number, per_page?: number) => number;
+export declare const isEmptyObject: (object: IObject) => boolean;
+export declare const isEmptyArray: (array: any[]) => boolean;
+export declare const trimObjectKey: (object: IObject) => IObject;
+export declare const stringifyObjectKey: (object: IObject) => IObject;
+export declare const sorter: (sort?: string) => string[];
+export declare const timestamp: () => string;
+export declare const spitTrim: (str: string, delimiter?: string) => string[];
+declare const _default: {
+    timestamp: () => string;
+    parseDataObject: (object: IObject<any>) => IObject<any>;
+    offset: (page?: number, per_page?: number) => number;
+    isEmptyArray: (array: any[]) => boolean;
+    isEmptyObject: (object: IObject<any>) => boolean;
+    trimObjectKey: (object: IObject<any>) => IObject<any>;
+    stringifyObjectKey: (object: IObject<any>) => IObject<any>;
+    spitTrim: (str: string, delimiter?: string) => string[];
+};
+export default _default;

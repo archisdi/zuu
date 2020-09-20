@@ -1,4 +1,4 @@
-import moment from 'moment';
+import * as moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import { BaseProps } from '../typings/common';
 
@@ -101,3 +101,5 @@ export abstract class BaseModel<P extends BaseProps = BaseProps> {
         throw new Error('model validation not implemented');
     }
 }
+
+export default BaseModel;

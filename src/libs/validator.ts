@@ -1,5 +1,5 @@
 import { IObject } from '../typings/common';
-import Joi from 'joi'
+import * as Joi from 'joi'
 import { HttpError } from 'tymon';
 import { COMMON_ERRORS } from '../utils/constant';
 
@@ -33,3 +33,5 @@ export const SchemeValidator = (input: IObject, scheme: Joi.ObjectSchema): any =
         });
     });
 };
+
+export default SchemeValidator;

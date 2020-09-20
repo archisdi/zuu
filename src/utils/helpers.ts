@@ -1,4 +1,4 @@
-import moment from 'moment';
+import * as moment from 'moment';
 import { IObject } from '../typings/common';
 
 export const parseDataObject = (object: IObject): IObject => JSON.parse(JSON.stringify(object));
