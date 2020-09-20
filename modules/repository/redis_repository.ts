@@ -1,7 +1,7 @@
 import RedisContext from 'tymon/modules/redis';
 import { IObject } from '../typings/common';
 
-class RedisRepo<Model = any> extends RedisContext {
+export class RedisRepo<Model = any> extends RedisContext {
     private path: string;
 
     public constructor(path: string) {
