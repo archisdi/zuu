@@ -16,11 +16,7 @@ export interface IPagination {
     total_data: number;
 }
 
-export interface IContext {
-    username: string;
-    user_id: string;
-    clearance: number;
-}
+export type IContext<schema = any> = schema;
 
 export interface IData<Query = any, Params = any, Body = any> {
     query: Query;
