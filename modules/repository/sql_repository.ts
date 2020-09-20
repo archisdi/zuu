@@ -8,7 +8,7 @@ const DEFAULT = {
     SORT: '-created_at'
 };
 
-export default class SQLRepo<ModelClass extends Model, Props extends BaseProps = BaseProps> extends DBContext {
+export class SQLRepo<ModelClass extends Model, Props extends BaseProps = BaseProps> extends DBContext {
     protected modelName: string;
     private model: StaticSqlModel<ModelClass>;
 
@@ -137,3 +137,5 @@ export default class SQLRepo<ModelClass extends Model, Props extends BaseProps =
             }));
     }
 }
+
+export default SQLRepo;

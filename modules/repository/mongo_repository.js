@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MongoRepo = void 0;
 const mongodb_1 = require("tymon/modules/mongodb");
 class MongoRepo extends mongodb_1.default {
     constructor(model) {
@@ -83,4 +84,5 @@ class MongoRepo extends mongodb_1.default {
         });
     }
 }
+exports.MongoRepo = MongoRepo;
 exports.default = MongoRepo;

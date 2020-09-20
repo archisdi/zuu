@@ -1,7 +1,7 @@
 import MongoContext from 'tymon/modules/mongodb';
 import { StaticMongoModel } from '../model/model';
 import { MakeAny } from '../typings/common';
-export default class MongoRepo<ModelClass> extends MongoContext {
+export declare class MongoRepo<ModelClass> extends MongoContext {
     private collection;
     private model;
     constructor(model: StaticMongoModel<ModelClass>);
@@ -15,3 +15,4 @@ export default class MongoRepo<ModelClass> extends MongoContext {
     updateMany(condition: MakeAny<ModelClass>, payload: Partial<ModelClass>): Promise<number>;
     upsert(condition: MakeAny<ModelClass>, payload: Partial<ModelClass>): Promise<void>;
 }
+export default MongoRepo;

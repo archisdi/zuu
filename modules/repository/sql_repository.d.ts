@@ -1,7 +1,7 @@
 import DBContext, { DBInstance } from 'tymon/modules/db';
 import { Model, StaticSqlModel } from '../model/model';
 import { Attributes, BaseProps, IPagination, QueryOptions } from '../typings/common';
-export default class SQLRepo<ModelClass extends Model, Props extends BaseProps = BaseProps> extends DBContext {
+export declare class SQLRepo<ModelClass extends Model, Props extends BaseProps = BaseProps> extends DBContext {
     protected modelName: string;
     private model;
     constructor(modelClass: StaticSqlModel<ModelClass>);
@@ -25,3 +25,4 @@ export default class SQLRepo<ModelClass extends Model, Props extends BaseProps =
         meta: IPagination;
     }>;
 }
+export default SQLRepo;

@@ -17,5 +17,5 @@ __exportStar(require("./modules/repository"), exports);
 __exportStar(require("./modules/event"), exports);
 __exportStar(require("./modules/factory"), exports);
 __exportStar(require("./modules/libs"), exports);
-__exportStar(require("./modules/utils/helpers"), exports);
+__exportStar(require("./modules/utils"), exports);
 __exportStar(require("./modules/middleware"), exports);

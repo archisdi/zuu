@@ -2,7 +2,7 @@ import MongoContext from 'tymon/modules/mongodb';
 import { StaticMongoModel } from '../model/model';
 import { MakeAny } from '../typings/common';
 
-export default class MongoRepo<ModelClass> extends MongoContext {
+export class MongoRepo<ModelClass> extends MongoContext {
     private collection: string;
     private model: StaticMongoModel<ModelClass>;
 
@@ -75,3 +75,5 @@ export default class MongoRepo<ModelClass> extends MongoContext {
         );
     }
 }
+
+export default MongoRepo;
