@@ -7,3 +7,4 @@ export * from './modules/factory';
 export * from './modules/libs';
 export * from './modules/utils';
 export * from './modules/middleware';
+export * from './modules/service';
