@@ -20,4 +20,3 @@ __exportStar(require("./modules/libs"), exports);
 __exportStar(require("./modules/utils"), exports);
 __exportStar(require("./modules/middleware"), exports);
 __exportStar(require("./modules/service"), exports);
-__exportStar(require("./modules/typings"), exports);
