@@ -136,6 +136,12 @@ class SQLRepo extends db_1.default {
             }));
         });
     }
+    save(model) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const props = model.toJson();
+            return this.upsert({ id: model.id }, props);
+        });
+    }
 }
 exports.SQLRepo = SQLRepo;
 exports.default = SQLRepo;

@@ -24,5 +24,6 @@ export declare class SQLRepo<ModelClass extends Model, Props extends BaseProps =
         data: ModelClass[];
         meta: IPagination;
     }>;
+    save(model: ModelClass): Promise<void>;
 }
 export default SQLRepo;

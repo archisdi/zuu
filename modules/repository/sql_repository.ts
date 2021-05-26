@@ -136,6 +136,11 @@ export class SQLRepo<ModelClass extends Model, Props extends BaseProps = BasePro
                 meta: { page, per_page, total_page: Math.ceil(count / per_page), total_data: count }
             }));
     }
+
+    public async save(model: ModelClass): Promise<void> {
+        const props = model.toJson();
+        return this.upsert({ id: model.id } as any, props as any);
+    }
 }
 
 export default SQLRepo;
