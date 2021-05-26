@@ -18,7 +18,7 @@ const defaultOptions = {
     },
     abortEarly: false
 };
-exports.SchemeValidator = (input, scheme, options = defaultOptions) => {
+const SchemeValidator = (input, scheme, options = defaultOptions) => {
     return scheme.validateAsync(input, options)
         .catch((err) => {
         const details = err.details.reduce((detail, item) => {
@@ -33,4 +33,5 @@ exports.SchemeValidator = (input, scheme, options = defaultOptions) => {
         });
     });
 };
+exports.SchemeValidator = SchemeValidator;
 exports.default = exports.SchemeValidator;

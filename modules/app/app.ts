@@ -2,7 +2,7 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as helmet from 'helmet';
-import { StaticBaseController } from '../controller/controller';
+import Controller, { StaticBaseController } from '../controller/controller';
 import RestfulControllerFactory, { ControllerOpts, StaticModel } from '../factory/controller_factory';
 import GlobalExceptionHandler from '../middleware/exception';
 import RouteNotFoundExceptionHandler from '../middleware/not_found';
@@ -34,8 +34,8 @@ export abstract class App {
         return this._port;
     }
 
-    public addController(controller: StaticBaseController): void {
-        const ctrl = new controller();
+    public addController(controller: StaticBaseController | Controller): void {
+        const ctrl: Controller = controller instanceof Controller ? controller : new controller();
         this.app.use(ctrl.path, ctrl.routes);
     }
 

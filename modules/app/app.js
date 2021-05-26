@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
+const controller_1 = require("../controller/controller");
 const controller_factory_1 = require("../factory/controller_factory");
 const exception_1 = require("../middleware/exception");
 const not_found_1 = require("../middleware/not_found");
@@ -27,7 +28,7 @@ class App {
         return this._port;
     }
     addController(controller) {
-        const ctrl = new controller();
+        const ctrl = controller instanceof controller_1.default ? controller : new controller();
         this.app.use(ctrl.path, ctrl.routes);
     }
     addControllerFromModel(model, options) {

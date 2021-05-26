@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { StaticBaseController } from '../controller/controller';
+import Controller, { StaticBaseController } from '../controller/controller';
 import { ControllerOpts, StaticModel } from '../factory/controller_factory';
 import { Model } from '../model/model';
 export declare abstract class App {
@@ -11,7 +11,7 @@ export declare abstract class App {
     abstract setControllers(): void;
     get app(): express.Application;
     get port(): number;
-    addController(controller: StaticBaseController): void;
+    addController(controller: StaticBaseController | Controller): void;
     addControllerFromModel<ModelClass extends StaticModel<Model>>(model: ModelClass, options?: ControllerOpts): void;
     private setPlugins;
     private setExceptionHandlers;

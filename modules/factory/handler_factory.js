@@ -18,7 +18,7 @@ const parseInput = (req) => ({
     params: req.params,
     body: req.body
 });
-exports.HandlerFactory = (method, isCached = false) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const HandlerFactory = (method, isCached = false) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = parseInput(req);
         const context = req === null || req === void 0 ? void 0 : req.context;
@@ -35,4 +35,5 @@ exports.HandlerFactory = (method, isCached = false) => (req, res, next) => __awa
         return next(err);
     }
 });
+exports.HandlerFactory = HandlerFactory;
 exports.default = exports.HandlerFactory;

@@ -25,7 +25,7 @@ const genericQueryBuilder = (keys, query) => {
     });
     return conditions;
 };
-exports.RestfulControllerFactory = (Model, options) => {
+const RestfulControllerFactory = (Model, options) => {
     const InstanceName = Model.modelName.toUpperCase();
     const PathName = `/${Model.modelName.toLowerCase()}`;
     return class GeneratedController extends controller_1.default {
@@ -110,4 +110,5 @@ exports.RestfulControllerFactory = (Model, options) => {
         }
     };
 };
+exports.RestfulControllerFactory = RestfulControllerFactory;
 exports.default = exports.RestfulControllerFactory;
