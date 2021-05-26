@@ -61,9 +61,6 @@ class Model {
             if (options === null || options === void 0 ? void 0 : options.validate) {
                 yield this.validate();
             }
-            if (options === null || options === void 0 ? void 0 : options.save) {
-                yield this.save();
-            }
         });
     }
     validate() {

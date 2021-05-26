@@ -3,10 +3,8 @@ import * as cors from 'cors';
 import * as express from 'express';
 import * as helmet from 'helmet';
 import Controller, { StaticBaseController } from '../controller/controller';
-import RestfulControllerFactory, { ControllerOpts, StaticModel } from '../factory/controller_factory';
 import GlobalExceptionHandler from '../middleware/exception';
 import RouteNotFoundExceptionHandler from '../middleware/not_found';
-import { Model } from '../model/model';
 
 export abstract class App {
     protected _app: express.Application;
@@ -37,11 +35,6 @@ export abstract class App {
     public addController(controller: StaticBaseController | Controller): void {
         const ctrl: Controller = controller instanceof Controller ? controller : new controller();
         this.app.use(ctrl.path, ctrl.routes);
-    }
-
-    public addControllerFromModel<ModelClass extends StaticModel<Model>>(model: ModelClass, options?: ControllerOpts): void {
-        const controller = RestfulControllerFactory(model, options);
-        this.addController(controller);
     }
 
     private setPlugins(): void {
