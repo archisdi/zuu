@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventFactory = void 0;
 const event_1 = require("../event/event");
-const EventFactory = (eventHandler) => {
+exports.EventFactory = (eventHandler) => {
     return class EventClass extends event_1.Event {
         constructor() {
             super(eventHandler.eventName);
@@ -35,5 +35,4 @@ const EventFactory = (eventHandler) => {
         }
     };
 };
-exports.EventFactory = EventFactory;
 exports.default = exports.EventFactory;

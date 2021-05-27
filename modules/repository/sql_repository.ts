@@ -1,5 +1,5 @@
-import { HttpError } from 'tymon';
-import DBContext, { DBInstance } from 'tymon/modules/db';
+import { NotFoundError } from '../utils/http_error';
+import DBContext, { DBInstance } from '../database/db';
 import { Model, StaticSqlModel } from '../model/model';
 import { Attributes, BaseProps, IPagination, QueryOptions } from '../typings/common';
 import { offset, sorter } from '../utils/helpers';
@@ -48,7 +48,7 @@ export class SQLRepo<ModelClass extends Model, Props extends BaseProps = BasePro
         return this.findOne(conditions, attributes).then(
             (res: any): ModelClass => {
                 if (!res) {
-                    throw HttpError.NotFoundError(`${this.modelName.toUpperCase()}_NOT_FOUND`);
+                    throw new NotFoundError(`${this.modelName.toUpperCase()}_NOT_FOUND`);
                 }
                 return res;
             }
@@ -131,7 +131,7 @@ export class SQLRepo<ModelClass extends Model, Props extends BaseProps = BasePro
                 offset: offset(page, per_page),
                 order: [order as any]
             })
-            .then(({ rows, count }): { data: ModelClass[]; meta: IPagination } => ({
+            .then(({ rows, count }: { rows: any[]; count: number}): { data: ModelClass[]; meta: IPagination } => ({
                 data: this.buildMany(rows),
                 meta: { page, per_page, total_page: Math.ceil(count / per_page), total_data: count }
             }));

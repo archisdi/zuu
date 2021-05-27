@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { OK } from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import RedisRepo from '../repository/redis_repository';
 import { IContext } from '../typings/common';
 
@@ -11,7 +11,7 @@ const RouteCache = async (req: Request, res: Response, next: NextFunction): Prom
     const cache = await PathCache.get(cacheKey);
 
     if (cache) {
-        return res.status(OK).json(cache);
+        return res.status(StatusCodes.OK).json(cache);
     }
 
     return next();

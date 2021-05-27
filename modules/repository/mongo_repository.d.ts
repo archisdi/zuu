@@ -1,4 +1,4 @@
-import MongoContext from 'tymon/modules/mongodb';
+import MongoContext from '../database/mongodb';
 import { StaticMongoModel } from '../model/model';
 import { MakeAny } from '../typings/common';
 export declare class MongoRepo<ModelClass> extends MongoContext {

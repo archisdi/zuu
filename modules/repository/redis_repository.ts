@@ -1,4 +1,4 @@
-import RedisContext from 'tymon/modules/redis';
+import RedisContext from '../database/redis';
 import { IObject } from '../typings/common';
 
 export class RedisRepo<Model = any> extends RedisContext {

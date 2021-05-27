@@ -18,7 +18,7 @@ const parseInput = (req) => ({
     params: req.params,
     body: req.body
 });
-const HandlerFactory = (method, isCached = false) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.HandlerFactory = (method, isCached = false) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = parseInput(req);
         const context = req === null || req === void 0 ? void 0 : req.context;
@@ -29,11 +29,10 @@ const HandlerFactory = (method, isCached = false) => (req, res, next) => __await
             const cacheKey = `${context ? context.username : ''}${req.originalUrl}`;
             yield PathCache.set(cacheKey, outData, ROUTE_CACHE_TIME);
         }
-        return res.status(http_status_codes_1.OK).json(outData);
+        return res.status(http_status_codes_1.StatusCodes.OK).json(outData);
     }
     catch (err) {
         return next(err);
     }
 });
-exports.HandlerFactory = HandlerFactory;
 exports.default = exports.HandlerFactory;

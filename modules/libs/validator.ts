@@ -1,6 +1,6 @@
 import { IObject } from '../typings/common';
 import * as Joi from 'joi'
-import { HttpError } from 'tymon';
+import { HttpError } from '../utils/http_error';
 import { COMMON_ERRORS } from '../utils/constant';
 
 export const COMMON_SCHEME = {
@@ -26,7 +26,7 @@ export const SchemeValidator = (input: IObject, scheme: Joi.ObjectSchema, option
                 detail[item.context.key] = item.message.replace(/"/g, '');
                 return detail;
             }, {});
-            throw new HttpError.HttpError({
+            throw new HttpError({
                 message: 'error validating fields',
                 http_status: 422,
                 name: COMMON_ERRORS.VALIDATION_ERROR,

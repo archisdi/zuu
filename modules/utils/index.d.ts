@@ -1,2 +1,3 @@
 import helpers from './helpers';
-export { helpers };
+import HttpError from './http_error';
+export { helpers, HttpError };

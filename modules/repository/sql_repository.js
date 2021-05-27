@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SQLRepo = void 0;
-const tymon_1 = require("tymon");
-const db_1 = require("tymon/modules/db");
+const http_error_1 = require("../utils/http_error");
+const db_1 = require("../database/db");
 const helpers_1 = require("../utils/helpers");
 const DEFAULT = {
     SORT: '-created_at'
@@ -51,7 +51,7 @@ class SQLRepo extends db_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             return this.findOne(conditions, attributes).then((res) => {
                 if (!res) {
-                    throw tymon_1.HttpError.NotFoundError(`${this.modelName.toUpperCase()}_NOT_FOUND`);
+                    throw new http_error_1.NotFoundError(`${this.modelName.toUpperCase()}_NOT_FOUND`);
                 }
                 return res;
             });

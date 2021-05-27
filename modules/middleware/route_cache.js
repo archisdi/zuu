@@ -17,7 +17,7 @@ const RouteCache = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     const cacheKey = `${context ? context.username : ''}${req.originalUrl}`;
     const cache = yield PathCache.get(cacheKey);
     if (cache) {
-        return res.status(http_status_codes_1.OK).json(cache);
+        return res.status(http_status_codes_1.StatusCodes.OK).json(cache);
     }
     return next();
 });

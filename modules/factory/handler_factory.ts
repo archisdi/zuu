@@ -1,5 +1,5 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
-import { OK } from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import RedisRepo from '../repository/redis_repository';
 import { IContext, IData, MethodHandler } from '../typings/common';
 
@@ -28,7 +28,7 @@ export const HandlerFactory = (method: MethodHandler, isCached = false): Request
             await PathCache.set(cacheKey, outData, ROUTE_CACHE_TIME);
         }
 
-        return res.status(OK).json(outData);
+        return res.status(StatusCodes.OK).json(outData);
     } catch (err) {
         return next(err);
     }

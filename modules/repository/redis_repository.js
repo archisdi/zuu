@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RedisRepo = void 0;
-const redis_1 = require("tymon/modules/redis");
+const redis_1 = require("../database/redis");
 class RedisRepo extends redis_1.default {
     constructor(path) {
         super();
