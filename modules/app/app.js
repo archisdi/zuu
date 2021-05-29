@@ -2,11 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.App = void 0;
 const bodyParser = require("body-parser");
+const compression = require("compression");
 const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
-const compression = require("compression");
 const controller_1 = require("../controller/controller");
+const controller_factory_1 = require("../factory/controller_factory");
 const exception_1 = require("../middleware/exception");
 const not_found_1 = require("../middleware/not_found");
 class App {
@@ -30,6 +31,10 @@ class App {
     addController(controller) {
         const ctrl = controller instanceof controller_1.default ? controller : new controller();
         this.app.use(ctrl.path, ctrl.routes);
+    }
+    addControllerFromModel(model, options) {
+        const controller = controller_factory_1.default(model, options);
+        this.addController(controller);
     }
     setPlugins() {
         this.app.use(bodyParser.json());
