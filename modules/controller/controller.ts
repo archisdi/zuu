@@ -3,7 +3,7 @@ import * as Joi from "joi";
 import HandlerFactory from '../factory/handler_factory';
 import request_validator from '../middleware/request_validator';
 import route_cache from '../middleware/route_cache';
-import { MethodHandler } from '../typings/common';
+import { HandlerMethod } from '../typings/common';
 
 type AllowedMethod = 'get' | 'post' | 'put' | 'delete';
 type MiddleWare = RequestHandler | RequestHandler[];
@@ -48,7 +48,7 @@ export abstract class Controller {
     protected addRoute<DataOutput = any>(
         httpMethod: AllowedMethod,
         path = '/',
-        handler: MethodHandler<DataOutput>,
+        handler: HandlerMethod<DataOutput>,
         options?: RouteOptions
     ): void {
         const middlewares = options?.middlewares ? options.middlewares instanceof Array ? options.middlewares : [options.middlewares] : [];
@@ -65,8 +65,8 @@ export abstract class Controller {
         this.routes[httpMethod](path, [...this._middlewares, ...routeMiddleware], HandlerFactory(handler, options?.cache));
     }
 
-    protected addChildController(controller: StaticBaseController): void {
-        const ctrl = new controller();
+    protected addChildController(controller: StaticBaseController | Controller): void {
+        const ctrl: Controller = controller instanceof Controller ? controller : new controller();
         this.routes.use(ctrl.path, ctrl.routes);
     }
 

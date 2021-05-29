@@ -1,4 +1,4 @@
-import { IHttpError, Attributes, BaseProps, BasicType, GenericStaticClass, IContext, IData, IHttpOutput, IObject, IPagination, MakeAny, MethodHandler, ModelProperties, OptionalRelation, QueryOptions } from './modules/typings';
+import { Page, Attributes, BaseProps, BasicType, GenericStaticClass, Context, RequestData, ResponseData, IObject, PaginationMeta, MakeAny, HandlerMethod, ModelProperties, OptionalRelation, QueryOptions } from './modules/typings';
 
 export * from './modules/app';
 export * from './modules/controller'
@@ -13,18 +13,18 @@ export * from './modules/service';
 export * from './modules/database';
 
 export {
-    IHttpError,
+    Page,
     Attributes,
     BaseProps,
     BasicType,
     GenericStaticClass,
-    IContext,
-    IData,
-    IHttpOutput,
+    Context,
+    RequestData,
+    ResponseData,
     IObject,
-    IPagination,
+    PaginationMeta,
     MakeAny,
-    MethodHandler,
+    HandlerMethod,
     ModelProperties,
     OptionalRelation,
     QueryOptions,

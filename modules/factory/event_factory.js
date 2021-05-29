@@ -30,7 +30,7 @@ exports.EventFactory = (eventHandler) => {
         static dispatch(payload) {
             return __awaiter(this, void 0, void 0, function* () {
                 const instance = this.getInstance();
-                yield instance.queue.add(payload);
+                yield instance.queue.add(payload, { removeOnComplete: true });
             });
         }
     };

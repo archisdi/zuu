@@ -21,7 +21,7 @@ export const EventFactory = <dispatchPayload = any>(eventHandler: StaticEventHan
 
         public static async dispatch(payload: dispatchPayload): Promise<void> {
             const instance = this.getInstance();
-            await instance.queue.add(payload);
+            await instance.queue.add(payload, { removeOnComplete: true });
         }
     };
 };

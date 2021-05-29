@@ -1,24 +1,24 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import RedisRepo from '../repository/redis_repository';
-import { IContext, IData, MethodHandler } from '../typings/common';
+import { Context, RequestData, HandlerMethod } from '../typings/common';
 
 const ROUTE_CACHE_TIME = 600;
 
-const parseInput = (req: Request): IData => ({
+const parseInput = (req: Request): RequestData => ({
     query: req.query,
     params: req.params,
     body: req.body
 });
 
-export const HandlerFactory = (method: MethodHandler, isCached = false): RequestHandler => async (
+export const HandlerFactory = (method: HandlerMethod, isCached = false): RequestHandler => async (
     req: Request,
     res: Response,
     next: NextFunction
 ): Promise<Response | void> => {
     try {
         const data = parseInput(req);
-        const context: IContext = req?.context;
+        const context: Context = req?.context;
         const outData: any = await method(data, context);
 
         /** route caching */

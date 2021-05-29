@@ -9,31 +9,29 @@ export interface IObject<D = any> {
     [s: string]: D;
 }
 
-export interface IPagination {
+export interface PaginationMeta {
     page: number;
     per_page: number;
     total_page: number;
     total_data: number;
 }
 
-export type IContext<schema = any> = schema;
+export interface Page<T> {
+    data: T[];
+    meta: PaginationMeta;
+}
 
-export interface IData<Query = any, Params = any, Body = any> {
+export type Context<schema = any> = schema;
+
+export interface RequestData<Query = any, Params = any, Body = any> {
     query: Query;
     params: Params;
     body: Body;
 }
 
-export type MethodHandler<HandlerOutput = any> = (data: IData, context: IContext) => Promise<HandlerOutput>;
+export type HandlerMethod<HandlerOutput = any> = (data: RequestData, context: Context) => Promise<HandlerOutput>;
 
-export interface IHttpError {
-    message: string;
-    name: string;
-    status: number;
-    data?: IObject;
-}
-
-export interface IHttpOutput {
+export interface ResponseData {
     data?: any;
     meta: {
         code: number;
@@ -43,7 +41,7 @@ export interface IHttpOutput {
         error_data?: any;
         stack?: any[];
     };
-    pagination?: IPagination;
+    pagination?: PaginationMeta;
 }
 
 export type MakeAny<T> = {

@@ -35,7 +35,7 @@ class Controller {
         this.routes[httpMethod](path, [...this._middlewares, ...routeMiddleware], handler_factory_1.default(handler, options === null || options === void 0 ? void 0 : options.cache));
     }
     addChildController(controller) {
-        const ctrl = new controller();
+        const ctrl = controller instanceof Controller ? controller : new controller();
         this.routes.use(ctrl.path, ctrl.routes);
     }
     get routes() {

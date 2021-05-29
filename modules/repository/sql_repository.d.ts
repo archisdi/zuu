@@ -1,6 +1,6 @@
 import DBContext, { DBInstance } from '../database/db';
 import { Model, StaticSqlModel } from '../model/model';
-import { Attributes, BaseProps, IPagination, QueryOptions } from '../typings/common';
+import { Attributes, BaseProps, Page, QueryOptions } from '../typings/common';
 export declare class SQLRepo<ModelClass extends Model, Props extends BaseProps = BaseProps> extends DBContext {
     protected modelName: string;
     private model;
@@ -20,10 +20,7 @@ export declare class SQLRepo<ModelClass extends Model, Props extends BaseProps =
         [P in keyof ModelClass]?: P extends number ? number : never;
     }): Promise<any>;
     count(conditions: Partial<Props>): Promise<number>;
-    paginate(conditions: Partial<Props>, { page, per_page, sort, attributes }: QueryOptions): Promise<{
-        data: ModelClass[];
-        meta: IPagination;
-    }>;
+    paginate(conditions: Partial<Props>, { page, per_page, sort, attributes }: QueryOptions): Promise<Page<ModelClass>>;
     save(model: ModelClass): Promise<void>;
 }
 export default SQLRepo;

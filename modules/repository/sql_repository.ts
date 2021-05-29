@@ -1,7 +1,7 @@
 import { NotFoundError } from '../utils/http_error';
 import DBContext, { DBInstance } from '../database/db';
 import { Model, StaticSqlModel } from '../model/model';
-import { Attributes, BaseProps, IPagination, QueryOptions } from '../typings/common';
+import { Attributes, BaseProps, Page, QueryOptions } from '../typings/common';
 import { offset, sorter } from '../utils/helpers';
 
 const DEFAULT = {
@@ -120,7 +120,7 @@ export class SQLRepo<ModelClass extends Model, Props extends BaseProps = BasePro
     public async paginate(
         conditions: Partial<Props>,
         { page = 1, per_page = 10, sort = DEFAULT.SORT, attributes }: QueryOptions
-    ): Promise<{ data: ModelClass[]; meta: IPagination }> {
+    ): Promise<Page<ModelClass>> {
         const order = sorter(sort);
         const db = SQLRepo.getInstance();
         return db.model[this.modelName]
@@ -131,7 +131,7 @@ export class SQLRepo<ModelClass extends Model, Props extends BaseProps = BasePro
                 offset: offset(page, per_page),
                 order: [order as any]
             })
-            .then(({ rows, count }: { rows: any[]; count: number}): { data: ModelClass[]; meta: IPagination } => ({
+            .then(({ rows, count }: { rows: any[]; count: number}): Page<ModelClass> => ({
                 data: this.buildMany(rows),
                 meta: { page, per_page, total_page: Math.ceil(count / per_page), total_data: count }
             }));
