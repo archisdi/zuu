@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
+const compression = require("compression");
 const controller_1 = require("../controller/controller");
 const exception_1 = require("../middleware/exception");
 const not_found_1 = require("../middleware/not_found");
@@ -35,6 +36,7 @@ class App {
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(helmet());
         this.app.use(cors());
+        this.app.use(compression());
     }
     setExceptionHandlers() {
         this.app.use(not_found_1.default);
