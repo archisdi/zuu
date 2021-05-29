@@ -2,6 +2,7 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as helmet from 'helmet';
+import * as compression from 'compression';
 import Controller, { StaticBaseController } from '../controller/controller';
 import GlobalExceptionHandler from '../middleware/exception';
 import RouteNotFoundExceptionHandler from '../middleware/not_found';
@@ -42,6 +43,7 @@ export abstract class App {
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(helmet());
         this.app.use(cors());
+        this.app.use(compression())
     }
 
     private setExceptionHandlers(): void {
