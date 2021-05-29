@@ -35,6 +35,7 @@ export declare abstract class Model<P extends BaseProps = BaseProps> {
         save?: boolean;
         validate?: boolean;
     }): Promise<void>;
+    save(): Promise<void>;
     validate(): Promise<void>;
 }
 export default Model;

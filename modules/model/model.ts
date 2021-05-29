@@ -89,6 +89,12 @@ export abstract class Model<P extends BaseProps = BaseProps> {
         if (options?.validate) {
             await this.validate();
         }
+
+        await this.save();
+    }
+
+    public async save() {
+        throw new Error('model save not implemented');
     }
 
     public async validate(): Promise<void> {

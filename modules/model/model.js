@@ -61,6 +61,12 @@ class Model {
             if (options === null || options === void 0 ? void 0 : options.validate) {
                 yield this.validate();
             }
+            yield this.save();
+        });
+    }
+    save() {
+        return __awaiter(this, void 0, void 0, function* () {
+            throw new Error('model save not implemented');
         });
     }
     validate() {
