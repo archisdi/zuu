@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CLEARANCE = exports.COMMON_ERRORS = void 0;
+exports.TOKEN_TYPE = exports.CLEARANCE = exports.COMMON_ERRORS = void 0;
 var COMMON_ERRORS;
 (function (COMMON_ERRORS) {
     COMMON_ERRORS["VALIDATION_ERROR"] = "VALIDATION_ERROR";
@@ -9,9 +9,15 @@ var COMMON_ERRORS;
     COMMON_ERRORS["TOKEN_EXPIRED"] = "TOKEN_EXPIRED";
     COMMON_ERRORS["ROUTE_NOT_FOUND"] = "ROUTE_NOT_FOUND";
     COMMON_ERRORS["NO_ACCESS"] = "NO_ACCESS";
+    COMMON_ERRORS["INVALID_CREDENTIALS"] = "INVALID_CREDENTIALS";
 })(COMMON_ERRORS = exports.COMMON_ERRORS || (exports.COMMON_ERRORS = {}));
 var CLEARANCE;
 (function (CLEARANCE) {
     CLEARANCE[CLEARANCE["BLOCKED"] = 0] = "BLOCKED";
     CLEARANCE[CLEARANCE["AUTHENTICATED"] = 1] = "AUTHENTICATED";
 })(CLEARANCE = exports.CLEARANCE || (exports.CLEARANCE = {}));
+var TOKEN_TYPE;
+(function (TOKEN_TYPE) {
+    TOKEN_TYPE["BEARER"] = "Bearer";
+    TOKEN_TYPE["BASIC"] = "Basic";
+})(TOKEN_TYPE = exports.TOKEN_TYPE || (exports.TOKEN_TYPE = {}));

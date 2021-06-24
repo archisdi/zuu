@@ -16,16 +16,28 @@ export abstract class App {
     public constructor(port: number = 8080) {
         this._app = express();
         this._port = port;
-        this.setSingletonModules();
-        this.setPlugins();
-        this.setControllers();
-        this.setExceptionHandlers();
+    }
+
+    public async initialize(): Promise<void> {
+        try {
+            await this.initProviders();
+            await this.initPlugins();
+            await this.initControllers();
+            await this.initExceptionHandlers();
+        } catch (error) {
+            console.error(`fail initializing server on port ${this.port}, ${error}`);
+        }
     }
 
     /** @Overrided */
-    protected setSingletonModules(): void { };
+    protected async initProviders(): Promise<void> {
+    };
 
-    abstract setControllers(): void;
+    /** @Overrided */
+    protected async extendsPlugins(): Promise<void> {
+    };
+
+    abstract initControllers(): Promise<void>;
 
     public get app(): express.Application {
         return this._app;
@@ -45,7 +57,7 @@ export abstract class App {
         this.addController(controller);
     }
 
-    private setPlugins(): void {
+    private async initPlugins(): Promise<void> {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(helmet());
@@ -53,7 +65,7 @@ export abstract class App {
         this.app.use(compression())
     }
 
-    private setExceptionHandlers(): void {
+    private async initExceptionHandlers(): Promise<void> {
         this.app.use(RouteNotFoundExceptionHandler);
         this.app.use(GlobalExceptionHandler);
     }

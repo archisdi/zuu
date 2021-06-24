@@ -4,9 +4,14 @@ export declare enum COMMON_ERRORS {
     TOKEN_INVALID = "TOKEN_INVALID",
     TOKEN_EXPIRED = "TOKEN_EXPIRED",
     ROUTE_NOT_FOUND = "ROUTE_NOT_FOUND",
-    NO_ACCESS = "NO_ACCESS"
+    NO_ACCESS = "NO_ACCESS",
+    INVALID_CREDENTIALS = "INVALID_CREDENTIALS"
 }
 export declare enum CLEARANCE {
     BLOCKED = 0,
     AUTHENTICATED = 1
+}
+export declare enum TOKEN_TYPE {
+    BEARER = "Bearer",
+    BASIC = "Basic"
 }
