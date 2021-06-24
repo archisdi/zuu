@@ -1,5 +1,5 @@
 {
-  "name": "zuu",
+  "name": "@archisdi/zuu",
   "version": "1.0.0",
   "description": "yet another web framework for kickstarting a project",
   "main": "index.js",
