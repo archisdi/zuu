@@ -3,10 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Controller = void 0;
 const express_1 = require("express");
 const handler_factory_1 = require("../factory/handler_factory");
+const logger_1 = require("../libs/logger");
 const request_validator_1 = require("../middleware/request_validator");
 const route_cache_1 = require("../middleware/route_cache");
-class Controller {
+class Controller extends logger_1.default {
     constructor({ path, middleware }) {
+        super();
         this._middlewares = [];
         this._path = path;
         if (middleware) {

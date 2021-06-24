@@ -1,6 +1,7 @@
 import { RequestHandler, Router } from 'express';
 import * as Joi from "joi";
 import HandlerFactory from '../factory/handler_factory';
+import Logger from '../libs/logger';
 import request_validator from '../middleware/request_validator';
 import route_cache from '../middleware/route_cache';
 import { HandlerMethod } from '../typings/common';
@@ -23,12 +24,13 @@ interface RouteOptions {
     validate?: Joi.ObjectSchema;
 }
 
-export abstract class Controller {
+export abstract class Controller extends Logger {
     private _routes: Router;
     private _middlewares: RequestHandler[] = [];
     private _path: string;
 
     public constructor({ path, middleware }: ControllerOptions) {
+        super();
         this._path = path;
         if (middleware) {
             this.setMiddleware(middleware);

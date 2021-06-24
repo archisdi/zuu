@@ -10,11 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.App = void 0;
-const bodyParser = require("body-parser");
 const compression = require("compression");
 const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
+const morgan = require("morgan");
 const controller_1 = require("../controller/controller");
 const controller_factory_1 = require("../factory/controller_factory");
 const exception_1 = require("../middleware/exception");
@@ -65,11 +65,13 @@ class App {
     }
     initPlugins() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.app.use(bodyParser.json());
-            this.app.use(bodyParser.urlencoded({ extended: true }));
+            this.app.use(express.json());
+            this.app.use(express.urlencoded({ extended: true }));
             this.app.use(helmet());
             this.app.use(cors());
             this.app.use(compression());
+            this.app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
+            yield this.extendsPlugins();
         });
     }
     initExceptionHandlers() {

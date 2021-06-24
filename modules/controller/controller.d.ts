@@ -1,5 +1,6 @@
 import { RequestHandler, Router } from 'express';
 import * as Joi from "joi";
+import Logger from '../libs/logger';
 import { HandlerMethod } from '../typings/common';
 declare type AllowedMethod = 'get' | 'post' | 'put' | 'delete';
 declare type MiddleWare = RequestHandler | RequestHandler[];
@@ -15,7 +16,7 @@ interface RouteOptions {
     middlewares?: MiddleWare;
     validate?: Joi.ObjectSchema;
 }
-export declare abstract class Controller {
+export declare abstract class Controller extends Logger {
     private _routes;
     private _middlewares;
     private _path;

@@ -1,8 +1,8 @@
-import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as helmet from 'helmet';
+import * as morgan from 'morgan';
 import Controller, { StaticBaseController } from '../controller/controller';
 import RestfulControllerFactory, { ControllerOpts, StaticModel } from '../factory/controller_factory';
 import GlobalExceptionHandler from '../middleware/exception';
@@ -58,11 +58,13 @@ export abstract class App {
     }
 
     private async initPlugins(): Promise<void> {
-        this.app.use(bodyParser.json());
-        this.app.use(bodyParser.urlencoded({ extended: true }));
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({ extended: true }));
         this.app.use(helmet());
         this.app.use(cors());
-        this.app.use(compression())
+        this.app.use(compression());
+        this.app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
+        await this.extendsPlugins();
     }
 
     private async initExceptionHandlers(): Promise<void> {
