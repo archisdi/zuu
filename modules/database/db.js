@@ -28,6 +28,12 @@ class DBModule {
         return __awaiter(this, void 0, void 0, function* () {
             const models = {};
             const sequelize = new Sequelize.Sequelize(connection_string, Object.assign(Object.assign({}, opts), options));
+            this.instance = {
+                ORMProvider: Sequelize,
+                context: sequelize,
+                model: models,
+                db_transaction: null
+            };
             const modelsDir = path.join(__dirname, '../../..', models_path);
             fs.readdirSync(modelsDir)
                 .filter((file) => {
@@ -36,21 +42,16 @@ class DBModule {
                 return (file.indexOf('.') !== 0) && isEligible;
             })
                 .forEach((file) => {
-                const model = sequelize.import(path.join(modelsDir, file));
-                models[model.name] = model;
+                const model = require(path.join(modelsDir, file));
+                this.instance.model[model.name] = model;
             });
+            /** initialize models relationship */
             Object.keys(models).forEach((modelName) => {
                 const subModel = models[modelName];
                 if (subModel && subModel.associate) {
                     subModel.associate(models);
                 }
             });
-            this.instance = {
-                ORMProvider: Sequelize,
-                context: sequelize,
-                model: models,
-                db_transaction: null
-            };
         });
     }
     static getInstance() {
@@ -59,19 +60,31 @@ class DBModule {
         }
         return this.instance;
     }
+    static getContext() {
+        if (!this.instance) {
+            throw new Error('Not initialize');
+        }
+        return this.instance.context;
+    }
+    static getORMProvider() {
+        if (!this.instance) {
+            throw new Error('Not initialize');
+        }
+        return this.instance.ORMProvider;
+    }
     static getModel(modelName) {
         if (!this.instance) {
             throw new Error('Not initialize');
         }
         return this.instance.model[modelName];
     }
-    static startTransaction() {
+    static startTransaction(isolationLevel = this.instance.ORMProvider.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!this.instance) {
                 throw new Error('Not initialize');
             }
             this.instance.db_transaction = yield this.instance.context.transaction({
-                isolationLevel: this.instance.ORMProvider.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED
+                isolationLevel: isolationLevel
             });
         });
     }

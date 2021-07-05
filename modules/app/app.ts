@@ -61,7 +61,7 @@ export abstract class App {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(helmet());
-        this.app.use(cors());
+        this.app.use(cors({ origin: process.env.CORS_ORIGIN?.split(',').map(crs => crs.trim()) || "*" }));
         this.app.use(compression());
         this.app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
         await this.extendsPlugins();

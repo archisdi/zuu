@@ -64,11 +64,12 @@ class App {
         this.addController(controller);
     }
     initPlugins() {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             this.app.use(express.json());
             this.app.use(express.urlencoded({ extended: true }));
             this.app.use(helmet());
-            this.app.use(cors());
+            this.app.use(cors({ origin: ((_a = process.env.CORS_ORIGIN) === null || _a === void 0 ? void 0 : _a.split(',').map(crs => crs.trim())) || "*" }));
             this.app.use(compression());
             this.app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
             yield this.extendsPlugins();

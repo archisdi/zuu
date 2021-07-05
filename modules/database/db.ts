@@ -42,6 +42,13 @@ export class DBModule {
     public static async initialize({ connection_string, models_path, options }: DBOpts): Promise<void> {
         const models: DBModelCollection = {};
         const sequelize = new Sequelize.Sequelize(connection_string, { ...opts, ...options});
+
+        this.instance = {
+            ORMProvider: Sequelize,
+            context: sequelize,
+            model: models,
+            db_transaction: null
+        };
     
         const modelsDir = path.join(__dirname, '../../..', models_path);
         fs.readdirSync(modelsDir)
@@ -51,54 +58,62 @@ export class DBModule {
                 return (file.indexOf('.') !== 0) && isEligible;
             })
             .forEach((file) => {
-                const model: DBModel = sequelize.import(path.join(modelsDir, file));
-                models[model.name] = model;
+                const model: DBModel = require(path.join(modelsDir, file));
+                this.instance.model[model.name] = model;
             });
-    
+
+        /** initialize models relationship */
         Object.keys(models).forEach((modelName) => {
             const subModel = models[modelName];
             if (subModel && subModel.associate) {
                 subModel.associate(models);
             }
         });
-    
-        this.instance = {
-            ORMProvider: Sequelize,
-            context: sequelize,
-            model: models,
-            db_transaction: null
-        };
     }
-    
+
     public static getInstance(): DBInstance {
         if (!this.instance) {
             throw new Error('Not initialize');
         }
         return this.instance;
     }
-    
+
+    public static getContext(): Sequelize.Sequelize {
+        if (!this.instance) {
+            throw new Error('Not initialize');
+        }
+        return this.instance.context;
+    }
+
+    public static getORMProvider(): typeof Sequelize {
+        if (!this.instance) {
+            throw new Error('Not initialize');
+        }
+        return this.instance.ORMProvider;
+    }
+
     public static getModel(modelName: string): DBModel {
         if (!this.instance) {
             throw new Error('Not initialize');
         }
         return this.instance.model[modelName];
     }
-    
-    public static async startTransaction(): Promise<void> {
+
+    public static async startTransaction(isolationLevel = this.instance.ORMProvider.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED): Promise<void> {
         if (!this.instance) {
             throw new Error('Not initialize');
         }
         this.instance.db_transaction = await this.instance.context.transaction({
-            isolationLevel: this.instance.ORMProvider.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED
+            isolationLevel: isolationLevel
         });
     }
-    
+
     public static async endTransaction(): Promise<void>{
         if (this.instance) {
             this.instance.db_transaction = null;
         }
     }
-    
+
     public static getTransaction(): Transaction | undefined{
         return this.instance?.db_transaction ? this.instance.db_transaction : undefined;
     }
@@ -109,7 +124,7 @@ export class DBModule {
             await this.endTransaction();
         }
     }
-    
+
     public static async rollback(): Promise<void>{
         if (this.instance.db_transaction) {
             await this.instance.db_transaction.rollback();

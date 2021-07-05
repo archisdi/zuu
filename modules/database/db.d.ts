@@ -22,8 +22,10 @@ export declare class DBModule {
     private static instance;
     static initialize({ connection_string, models_path, options }: DBOpts): Promise<void>;
     static getInstance(): DBInstance;
+    static getContext(): Sequelize.Sequelize;
+    static getORMProvider(): typeof Sequelize;
     static getModel(modelName: string): DBModel;
-    static startTransaction(): Promise<void>;
+    static startTransaction(isolationLevel?: Transaction.ISOLATION_LEVELS): Promise<void>;
     static endTransaction(): Promise<void>;
     static getTransaction(): Transaction | undefined;
     static commit(): Promise<void>;
